@@ -132,7 +132,7 @@ const Hero = () => {
       {/* Scroll Indicator */}
       <button
         onClick={scrollToNext}
-        className={`absolute bottom-8 left-8 lg:left-1/4 text-[#C9A84C] animate-bounce transition-opacity duration-1000 ${
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 text-[#C9A84C] animate-bounce transition-opacity duration-1000 ${
           isVisible ? 'opacity-70' : 'opacity-0'
         }`}
         style={{ transitionDelay: '800ms' }}
