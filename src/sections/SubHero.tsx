@@ -1,249 +1,202 @@
 import { useEffect, useRef, useState } from 'react';
 import { subHeroConfig } from '../config';
+import BottleReveal from '../components/BottleReveal';
 
-const useCountUp = (end: number, duration: number = 2000, start: boolean = false) => {
-  const [count, setCount] = useState(0);
-  const rafRef = useRef<number | undefined>(undefined);
-
-  useEffect(() => {
-    if (!start) return;
-    const startTime = performance.now();
-    const animate = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * end));
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(animate);
-      }
-    };
-    rafRef.current = requestAnimationFrame(animate);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [start, end, duration]);
-
-  return count;
-};
-
-const useParallax = () => {
-  const [offset, setOffset] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const windowH = window.innerHeight;
-      if (rect.top < windowH && rect.bottom > 0) {
-        const progress = (windowH - rect.top) / (windowH + rect.height);
-        setOffset((progress - 0.5) * 60);
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return { ref, offset };
-};
 
 const SubHero = () => {
   if (!subHeroConfig.heading) return null;
 
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [statsVisible, setStatsVisible] = useState(false);
-  const statsRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
 
-  const img1Parallax = useParallax();
-  const img2Parallax = useParallax();
-
-  // Build countUp hooks for each stat
-  const statCounters = subHeroConfig.stats.map((stat) =>
-    useCountUp(stat.value, 2000, statsVisible)
-  );
-
+  // Fade-up animations trigger once when section enters viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.2 }
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.unobserve(entry.target); } },
+      { threshold: 0.05 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (outerRef.current) observer.observe(outerRef.current);
     return () => observer.disconnect();
   }, []);
 
+  // Scroll progress drives the bottle animation
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStatsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (statsRef.current) {
-      observer.observe(statsRef.current);
-    }
-
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      if (rafRef.current !== null) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        const outer = outerRef.current;
+        if (!outer) return;
+        const rect = outer.getBoundingClientRect();
+        const outerHeight = outer.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        setProgress(Math.max(0, Math.min(1, -rect.top / (outerHeight - viewportHeight))));
+      });
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current !== null) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
+    };
   }, []);
+
+  const headingLines = subHeroConfig.heading.split('\n');
+  const [para0, para1, para2] = subHeroConfig.bodyParagraphs;
+
+  const fadeUp = (delay: number) => ({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'translateY(0)' : 'translateY(24px)',
+    transition: `opacity 0.9s ease ${delay}ms, transform 0.9s ease ${delay}ms`,
+  });
+
+  // Shared CTA element rendered in two places (desktop right col / mobile+tablet below grid)
+  const ctaLink = subHeroConfig.linkText ? (
+    <a
+      href={subHeroConfig.linkTarget}
+      onClick={(e) => {
+        e.preventDefault();
+        document.querySelector(subHeroConfig.linkTarget)?.scrollIntoView({ behavior: 'smooth' });
+      }}
+      className="group inline-flex items-center gap-3 text-[#C9A84C] text-xs tracking-[0.3em] uppercase font-medium self-start"
+    >
+      <span className="border-b border-[#C9A84C]/40 group-hover:border-[#C9A84C] transition-colors duration-300 pb-0.5">
+        {subHeroConfig.linkText}
+      </span>
+      <span className="group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+    </a>
+  ) : null;
 
   return (
-    <section
-      id="subhero"
-      ref={sectionRef}
-      className="relative py-24 md:py-32 lg:py-40 bg-[#0a0a0a] overflow-hidden"
-    >
-      {/* Gold accent line */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent" />
+    <section id="subhero" className="relative bg-[#0a0a0a]">
+      {/* 4500px scroll travel for 180-frame animation */}
+      <div ref={outerRef} style={{ height: '4500px' }}>
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Content Side */}
+        {/* Sticky wrapper — entire composition stays pinned while user scrolls */}
+        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-start pt-6 md:justify-center md:pt-0">
+
+          {/* Radial glow */}
           <div
-            className={`relative z-10 transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
-            }`}
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: 'radial-gradient(ellipse 60% 80% at 50% 50%, #C9A84C07 0%, transparent 65%)' }}
+          />
+
+          {/* Watermark */}
+          <div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+            aria-hidden
           >
-            <span className="inline-block mb-4 text-sm tracking-[0.3em] text-[#C9A84C] font-medium uppercase">
-              {subHeroConfig.tag}
+            <span
+              className="font-serif text-[18vw] md:text-[15vw] font-bold uppercase tracking-widest whitespace-nowrap"
+              style={{ color: '#C9A84C', opacity: 0.025 }}
+            >
+              PHILOSOPHIE
             </span>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white leading-tight mb-6">
-              {subHeroConfig.heading}
-            </h2>
-            {subHeroConfig.bodyParagraphs.map((paragraph, index) => (
-              <p key={index} className="text-gray-400 text-lg leading-relaxed mb-6">
-                {paragraph}
-              </p>
-            ))}
-            {subHeroConfig.linkText && (
-              <a
-                href={subHeroConfig.linkTarget}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector(subHeroConfig.linkTarget)?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="inline-flex items-center gap-2 text-[#C9A84C] font-medium tracking-wide hover:gap-4 transition-all duration-300 gold-glow-hover"
-              >
-                {subHeroConfig.linkText}
-                <span className="text-lg">&rarr;</span>
-              </a>
-            )}
           </div>
 
-          {/* Image Side */}
-          <div className="relative h-[500px] md:h-[600px] lg:h-[700px]" style={{ perspective: '1200px' }}>
-            {/* Main Image */}
-            {subHeroConfig.image1 && (
-              <div
-                ref={img1Parallax.ref}
-                className="absolute top-0 right-0 w-[85%] h-[75%] overflow-hidden shadow-2xl shadow-black/50 gold-border-thin"
-                style={{
-                  clipPath: isVisible
-                    ? 'inset(0% 0% 0% 0%)'
-                    : 'inset(0% 100% 0% 0%)',
-                  transition: 'clip-path 1.4s cubic-bezier(0.77, 0, 0.18, 1) 0.2s, transform 1.4s cubic-bezier(0.33, 1, 0.68, 1) 0.2s',
-                  transform: isVisible
-                    ? `translateY(${img1Parallax.offset * 0.4}px) rotateY(0deg)`
-                    : `translateY(40px) rotateY(-4deg)`,
-                  transformOrigin: 'right center',
-                }}
-              >
-                <img
-                  src={subHeroConfig.image1}
-                  alt=""
-                  className="w-full h-full object-cover"
-                  style={{
-                    transform: `scale(1.1) translateY(${img1Parallax.offset * 0.2}px)`,
-                    transition: 'transform 0.1s linear',
-                  }}
-                />
+          {/* Top / bottom accent lines */}
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent" />
+
+          {/* ── Content ── */}
+          <div className="relative max-w-[1300px] mx-auto px-6 md:px-12 lg:px-20 w-full flex flex-col items-center gap-3 md:gap-4">
+
+            {/* Tag */}
+            <div className="flex items-center justify-center gap-4" style={fadeUp(100)}>
+              <div className="w-12 md:w-20 h-[1px] bg-gradient-to-r from-transparent to-[#C9A84C]" />
+              <span className="text-[9px] md:text-[10px] tracking-[0.5em] text-[#C9A84C] uppercase font-medium whitespace-nowrap">
+                {subHeroConfig.tag}
+              </span>
+              <div className="w-12 md:w-20 h-[1px] bg-gradient-to-l from-transparent to-[#C9A84C]" />
+            </div>
+
+            {/* Heading */}
+            <div className="text-center" style={fadeUp(200)}>
+              <h2 className="font-serif leading-[1.05]">
+                <span className="block text-2xl md:text-4xl lg:text-5xl text-white">
+                  {headingLines[0]}
+                </span>
+                {headingLines[1] && (
+                  <span className="block text-2xl md:text-4xl lg:text-5xl italic text-[#C9A84C]">
+                    {headingLines[1]}
+                  </span>
+                )}
+              </h2>
+            </div>
+
+            {/* Ornamental divider */}
+            <div className="flex items-center justify-center gap-3" style={fadeUp(320)}>
+              <div className="w-14 md:w-24 h-[1px] bg-gradient-to-r from-transparent to-[#C9A84C]/50" />
+              <div className="w-1.5 h-1.5 border border-[#C9A84C]/50 rotate-45" />
+              <div className="w-5 h-[1px] bg-[#C9A84C]/60" />
+              <div className="w-2 h-2 border border-[#C9A84C] rotate-45" />
+              <div className="w-5 h-[1px] bg-[#C9A84C]/60" />
+              <div className="w-1.5 h-1.5 border border-[#C9A84C]/50 rotate-45" />
+              <div className="w-14 md:w-24 h-[1px] bg-gradient-to-l from-transparent to-[#C9A84C]/50" />
+            </div>
+
+            {/* ── Editorial three-column grid ──
+                Mobile:  1 col — text (all 3 paras) → bottle → CTA
+                Tablet:  2 col — [text left | bottle right], CTA below spanning both
+                Desktop: 3 col — [text | rule | bottle | rule | text+CTA]         */}
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,260px)] lg:grid-cols-[1fr_1px_minmax(0,280px)_1px_1fr] gap-0 items-center w-full">
+
+              {/* Left text column
+                  – Desktop: para0 + para1 only
+                  – Tablet/Mobile: para0 + para1 + para2 (para2 moves to right col on desktop) */}
+              <div className="flex flex-col gap-4 md:pr-8 lg:pr-12 pb-6 md:pb-0" style={fadeUp(400)}>
+                <p className="text-gray-400 text-[13px] md:text-[14px] leading-[1.8] font-light">{para0}</p>
+                <p className="text-gray-400 text-[13px] md:text-[14px] leading-[1.8] font-light">{para1}</p>
+                {/* Para2 visible on mobile/tablet; hidden on desktop where it appears in right col */}
+                {para2 && (
+                  <p className="lg:hidden text-gray-400 text-[13px] md:text-[14px] leading-[1.8] font-light">
+                    {para2}
+                  </p>
+                )}
               </div>
-            )}
 
-            {/* Secondary Image */}
-            {subHeroConfig.image2 && (
+              {/* Left vertical gold rule — desktop only */}
               <div
-                ref={img2Parallax.ref}
-                className="absolute bottom-0 left-0 w-[60%] h-[50%] overflow-hidden shadow-2xl shadow-black/50 gold-border-thin"
-                style={{
-                  clipPath: isVisible
-                    ? 'inset(0% 0% 0% 0%)'
-                    : 'inset(100% 0% 0% 0%)',
-                  transition: 'clip-path 1.4s cubic-bezier(0.77, 0, 0.18, 1) 0.6s, transform 1.4s cubic-bezier(0.33, 1, 0.68, 1) 0.6s',
-                  transform: isVisible
-                    ? `translateY(${img2Parallax.offset * 0.6}px) rotateX(0deg)`
-                    : `translateY(60px) rotateX(4deg)`,
-                  transformOrigin: 'bottom center',
-                }}
+                className="hidden lg:block w-[1px] self-stretch"
+                style={{ background: 'linear-gradient(to bottom, transparent, #C9A84C50, transparent)' }}
+              />
+
+              {/* Center: bottle — vignette mask lives on the canvas element inside BottleReveal */}
+              <div
+                className="flex justify-center items-center py-5 md:py-3 lg:py-0 md:pl-8 lg:pl-0"
+                style={fadeUp(500)}
               >
-                <img
-                  src={subHeroConfig.image2}
-                  alt=""
-                  className="w-full h-full object-cover"
-                  style={{
-                    transform: `scale(1.08) translateY(${img2Parallax.offset * 0.3}px)`,
-                    transition: 'transform 0.1s linear',
-                  }}
-                />
+                <BottleReveal frameCount={180} progress={progress} />
               </div>
-            )}
 
-            {/* Decorative line */}
-            <div
-              className="absolute top-[10%] left-[-5%] w-32 h-32 border border-[#C9A84C]/20"
-              style={{
-                opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'scale(1) rotate(0deg)' : 'scale(0.6) rotate(-12deg)',
-                transition: 'all 1.2s cubic-bezier(0.33, 1, 0.68, 1) 1s',
-              }}
-            />
+              {/* Right vertical gold rule — desktop only */}
+              <div
+                className="hidden lg:block w-[1px] self-stretch"
+                style={{ background: 'linear-gradient(to bottom, transparent, #C9A84C50, transparent)' }}
+              />
 
-            {/* Floating accent dot */}
-            <div
-              className="absolute bottom-[15%] right-[-3%] w-4 h-4 rounded-full bg-[#C9A84C]/40"
-              style={{
-                opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'scale(1)' : 'scale(0)',
-                transition: 'all 0.8s cubic-bezier(0.33, 1, 0.68, 1) 1.4s',
-              }}
-            />
+              {/* Right text column — desktop only: para2 + CTA */}
+              <div className="hidden lg:flex flex-col gap-4 lg:pl-12" style={fadeUp(600)}>
+                {para2 && (
+                  <p className="text-gray-400 text-[14px] leading-[1.8] font-light">{para2}</p>
+                )}
+                {ctaLink}
+              </div>
+
+              {/* CTA for mobile + tablet — spans both tablet columns, hidden on desktop */}
+              <div
+                className="lg:hidden md:col-span-2 pt-4 md:pt-6"
+                style={fadeUp(600)}
+              >
+                {ctaLink}
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Stats Section */}
-      {subHeroConfig.stats.length > 0 && (
-        <div ref={statsRef} className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 mt-20 lg:mt-32">
-          <div
-            className={`grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 text-center transition-all duration-700 delay-300 ${
-              statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          >
-            {subHeroConfig.stats.map((stat, index) => (
-              <div key={index} className={`p-6 ${index < subHeroConfig.stats.length - 1 ? 'border-r border-[#C9A84C]/20' : ''}`}>
-                <span className="block font-serif text-4xl md:text-5xl text-[#C9A84C] mb-2">
-                  {statCounters[index]}{stat.suffix}
-                </span>
-                <span className="text-gray-500 text-sm tracking-wide uppercase">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Bottom gold accent line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent" />
     </section>
   );
 };

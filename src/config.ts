@@ -118,28 +118,7 @@ export const subHeroConfig: SubHeroConfig = {
   ],
 };
 
-// ─── Video Section ───────────────────────────────────────────────────────────
 
-export interface VideoSectionConfig {
-  tag: string;
-  heading: string;
-  bodyParagraphs: string[];
-  ctaText: string;
-  ctaTarget: string;
-  backgroundImage: string;
-}
-
-export const videoSectionConfig: VideoSectionConfig = {
-  tag: "LA COLLECTION",
-  heading: "Là où la Tradition\nRencontre l'Innovation",
-  bodyParagraphs: [
-    "Notre collection représente l'apogée de l'art de la parfumerie. Chaque parfum est un extrait de parfum - la forme la plus concentrée et luxueuse de parfum, contenant jusqu'à 40% d'huiles de parfum pures.",
-    "Cette concentration exceptionnelle garantit que nos senteurs évoluent magnifiquement tout au long de la journée, révélant de nouvelles couches de complexité à chaque heure qui passe. De la première pulvérisation au dernier murmure, vivez un voyage d'excellence olfactive."
-  ],
-  ctaText: "Voir Tous les Parfums",
-  ctaTarget: "#products",
-  backgroundImage: "/images/about-1.jpg",
-};
 
 // ─── Products ────────────────────────────────────────────────────────────────
 
@@ -240,6 +219,258 @@ export const productsConfig: ProductsConfig = {
       topNotes: ["Truffe", "Ylang-Ylang", "Cassis"],
       heartNotes: ["Orchidée", "Bois de Lotus", "Épices"],
       baseNotes: ["Patchouli", "Encens", "Vanille de Madagascar"],
+    },
+  ],
+};
+
+
+// ─── Video Section ───────────────────────────────────────────────────────────
+
+export interface VideoSectionConfig {
+  tag: string;
+  heading: string;
+  bodyParagraphs: string[];
+  ctaText: string;
+  ctaTarget: string;
+  backgroundImage: string;
+}
+
+export const videoSectionConfig: VideoSectionConfig = {
+  tag: "LA COLLECTION",
+  heading: "Là où la Tradition\nRencontre l'Innovation",
+  bodyParagraphs: [
+    "Notre collection représente l'apogée de l'art de la parfumerie. Chaque parfum est un extrait de parfum - la forme la plus concentrée et luxueuse de parfum, contenant jusqu'à 40% d'huiles de parfum pures.",
+    "Cette concentration exceptionnelle garantit que nos senteurs évoluent magnifiquement tout au long de la journée, révélant de nouvelles couches de complexité à chaque heure qui passe. De la première pulvérisation au dernier murmure, vivez un voyage d'excellence olfactive."
+  ],
+  ctaText: "Voir Tous les Parfums",
+  ctaTarget: "#products",
+  backgroundImage: "/images/about-1.jpg",
+};
+
+
+
+// ─── Packs ───────────────────────────────────────────────────────────────────
+
+export interface Pack {
+  id: number;
+  name: string;
+  price: number;
+  originalPrice: number;
+  category: string;
+  image: string;
+  description?: string;
+  includes: string[];
+}
+
+export interface PacksConfig {
+  tag: string;
+  heading: string;
+  description: string;
+  viewAllText: string;
+  addToCartText: string;
+  addedToCartText: string;
+  categories: string[];
+  packs: Pack[];
+}
+
+export const packsConfig: PacksConfig = {
+  tag: "NOS COFFRETS",
+  heading: "Packs d'Exception",
+  description: "Offrez ou faites-vous plaisir avec nos coffrets exclusifs, soigneusement composés pour une expérience olfactive complète.",
+  viewAllText: "Voir Tous les Coffrets",
+  addToCartText: "Ajouter au Panier",
+  addedToCartText: "Ajouté au Panier",
+  categories: ["Tous", "Duo", "Trio", "Coffret Prestige"],
+  packs: [
+    {
+      id: 101,
+      name: "Coffret Duo Oriental",
+      price: 820,
+      originalPrice: 965,
+      category: "Duo",
+      image: "/images/perfume-1.jpg",
+      description: "Deux joyaux orientaux réunis dans un coffret de prestige. Un voyage entre le safran enivrant et l'ambre profond.",
+      includes: ["Aurum Noir 50ml", "Velours Impérial 50ml"],
+    },
+    {
+      id: 102,
+      name: "Coffret Trio Signature",
+      price: 1150,
+      originalPrice: 1400,
+      category: "Trio",
+      image: "/images/perfume-2.jpg",
+      description: "L'essence de notre maison réunie en trois flacons d'exception. Le parfait voyage à travers notre savoir-faire.",
+      includes: ["Rose d'Or 30ml", "Lumière Éternelle 30ml", "Bois Précieux 30ml"],
+    },
+    {
+      id: 103,
+      name: "Coffret Prestige Royal",
+      price: 1680,
+      originalPrice: 2000,
+      category: "Coffret Prestige",
+      image: "/images/perfume-5.jpg",
+      description: "Notre coffret le plus exclusif — cinq fragrances iconiques réunies dans un écrin de luxe digne des plus grandes maisons.",
+      includes: ["Aurum Noir 50ml", "Rose d'Or 50ml", "Bois Précieux 50ml", "Velours Impérial 50ml", "Règne Suprême 30ml"],
+    },
+    {
+      id: 104,
+      name: "Coffret Duo Floral & Frais",
+      price: 690,
+      originalPrice: 815,
+      category: "Duo",
+      image: "/images/perfume-3.jpg",
+      description: "La légèreté des fleurs et la fraîcheur des agrumes s'unissent dans un coffret pensé pour les esprits libres.",
+      includes: ["Rose d'Or 50ml", "Lumière Éternelle 50ml"],
+    },
+    {
+      id: 105,
+      name: "Coffret Découverte",
+      price: 420,
+      originalPrice: 510,
+      category: "Trio",
+      image: "/images/perfume-4.jpg",
+      description: "Le point de départ idéal pour explorer l'univers Alaa. Trois miniatures emblématiques dans un écrin raffiné.",
+      includes: ["Aurum Noir 10ml", "Rose d'Or 10ml", "Règne Suprême 10ml"],
+    },
+    {
+      id: 106,
+      name: "Coffret Boisé Intense",
+      price: 860,
+      originalPrice: 1030,
+      category: "Duo",
+      image: "/images/perfume-6.jpg",
+      description: "Pour ceux qui recherchent la profondeur et l'intensité. Deux fragrances boisées d'une puissance rare.",
+      includes: ["Bois Précieux 50ml", "Règne Suprême 50ml"],
+    },
+  ],
+};
+
+// ─── Brand Story ─────────────────────────────────────────────────────────────
+
+export interface BrandStoryConfig {
+  tag: string;
+  heading: string;
+  subheading: string;
+  bodyParagraphs: string[];
+  ctaText: string;
+  ctaTarget: string;
+  videoSrc: string;
+  videoPoster: string;
+}
+
+export const brandStoryConfig: BrandStoryConfig = {
+  tag: "NOTRE HISTOIRE",
+  heading: "L'Âme d'une\nMaison de Luxe",
+  subheading: "Depuis 25 ans, nous transcendons l'art du parfum.",
+  bodyParagraphs: [
+    "Née de la passion d'un maître parfumeur visionnaire, Alaa Parfums de Luxe est bien plus qu'une maison de parfumerie — c'est un héritage vivant, tissé de savoir-faire ancestral et d'audace créatrice.",
+    "Chaque flacon est une œuvre d'art. Chaque fragrance, une histoire. Du choix minutieux des matières premières à la mise en flacon, chaque étape est guidée par une seule exigence : l'excellence absolue.",
+  ],
+  ctaText: "Découvrir Notre Maison",
+  ctaTarget: "#about",
+  videoSrc: "/images/section.mp4",
+  videoPoster: "/images/about-1.jpg",
+};
+
+// ─── Creams ──────────────────────────────────────────────────────────────────
+
+export interface Cream {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  image: string;
+  description?: string;
+  keyIngredients?: string[];
+  skinType?: string[];
+  benefits?: string[];
+}
+
+export interface CreamsConfig {
+  tag: string;
+  heading: string;
+  description: string;
+  viewAllText: string;
+  addToCartText: string;
+  addedToCartText: string;
+  categories: string[];
+  creams: Cream[];
+}
+
+export const creamsConfig: CreamsConfig = {
+  tag: "SOINS DE LUXE",
+  heading: "Crèmes & Soins",
+  description: "Des soins d'exception formulés avec les mêmes ingrédients précieux que nos parfums, pour sublimer votre peau chaque jour.",
+  viewAllText: "Voir Tous les Soins",
+  addToCartText: "Ajouter au Panier",
+  addedToCartText: "Ajouté au Panier",
+  categories: ["Tous", "Corps", "Visage", "Mains"],
+  creams: [
+    {
+      id: 201,
+      name: "Velours d'Or",
+      price: 185,
+      category: "Corps",
+      image: "/images/perfume-1.jpg",
+      description: "Une crème corps somptueuse infusée d'huile d'argan dorée et de vanille de Madagascar. La peau est nourrie, veloutée et délicatement parfumée.",
+      keyIngredients: ["Huile d'Argan", "Beurre de Karité", "Vanille de Madagascar"],
+      skinType: ["Tous types", "Peau sèche"],
+      benefits: ["Nourrissant", "Hydratant", "Parfumant"],
+    },
+    {
+      id: 202,
+      name: "Rose Précieuse",
+      price: 220,
+      category: "Visage",
+      image: "/images/perfume-2.jpg",
+      description: "Un soin visage d'exception à la rose de Damas et au rétinol naturel. Redensifie, éclaire et repulpe la peau pour un teint rayonnant.",
+      keyIngredients: ["Eau de Rose de Damas", "Rétinol Naturel", "Acide Hyaluronique"],
+      skinType: ["Peau mature", "Peau terne"],
+      benefits: ["Anti-âge", "Éclat", "Repulpant"],
+    },
+    {
+      id: 203,
+      name: "Lumière Satinée",
+      price: 145,
+      category: "Corps",
+      image: "/images/perfume-3.jpg",
+      description: "Un lait corps léger et pénétrant aux agrumes et fleurs blanches. Laisse la peau satinée, lumineuse et subtilement parfumée toute la journée.",
+      keyIngredients: ["Huile de Néroli", "Beurre de Mangue", "Extrait de Fleur d'Oranger"],
+      skinType: ["Tous types", "Peau normale à mixte"],
+      benefits: ["Légèreté", "Éclat", "Longue durée"],
+    },
+    {
+      id: 204,
+      name: "Sérum Oud Intense",
+      price: 290,
+      category: "Visage",
+      image: "/images/perfume-4.jpg",
+      description: "Un sérum concentré à l'huile de bois d'oud et au squalane végétal. Répare, fortifie et donne un éclat profond à la peau la plus exigeante.",
+      keyIngredients: ["Huile de Bois d'Oud", "Squalane Végétal", "Peptides de Soie"],
+      skinType: ["Peau sèche", "Peau sensible"],
+      benefits: ["Réparateur", "Fortifiant", "Éclat profond"],
+    },
+    {
+      id: 205,
+      name: "Mains Impériales",
+      price: 95,
+      category: "Mains",
+      image: "/images/perfume-5.jpg",
+      description: "Une crème mains ultra-riche à l'iris et au miel d'acacia. Répare les mains les plus abîmées et dépose un voile parfumé délicat.",
+      keyIngredients: ["Beurre d'Iris", "Miel d'Acacia", "Huile de Jojoba"],
+      skinType: ["Tous types"],
+      benefits: ["Ultra-nourrissant", "Réparateur", "Parfumant"],
+    },
+    {
+      id: 206,
+      name: "Huile Sublime",
+      price: 165,
+      category: "Corps",
+      image: "/images/perfume-6.jpg",
+      description: "Une huile sèche luxueuse aux patchouli et encens, inspirée de nos fragrances iconiques. Nourrit en profondeur et laisse un voile soyeux irrésistible.",
+      keyIngredients: ["Huile de Patchouli", "Extrait d'Encens", "Huile d'Amande Douce"],
+      skinType: ["Tous types", "Peau sèche à très sèche"],
+      benefits: ["Nourrissant", "Soyeux", "Sensoriel"],
     },
   ],
 };

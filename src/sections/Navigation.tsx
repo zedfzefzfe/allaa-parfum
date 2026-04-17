@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ShoppingBag, X, Search, Instagram, Facebook, Twitter } from 'lucide-react';
 import { navigationConfig } from '../config';
 
@@ -29,10 +29,19 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentY = window.scrollY;
+      setIsScrolled(currentY > 50);
+      if (currentY > lastScrollY.current && currentY > 100) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+      lastScrollY.current = currentY;
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -54,7 +63,7 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled ? 'bg-[#0a0a0a]/95 backdrop-blur-sm shadow-lg shadow-black/20' : 'bg-transparent'
-        }`}
+        } ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}
       >
         <div className="flex items-center justify-between h-[120px] md:h-[140px] px-6 md:px-12 lg:px-[60px]">
           <a

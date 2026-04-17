@@ -1,12 +1,14 @@
 import { useState, useCallback } from 'react';
 import { siteConfig } from './config';
-import type { Product } from './config';
+import type { Product, Pack, Cream } from './config';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
 import SubHero from './sections/SubHero';
 import VideoSection from './sections/VideoSection';
 import Products from './sections/Products';
-import Features from './sections/Features';
+import Packs from './sections/Packs';
+import BrandStory from './sections/BrandStory';
+import Creams from './sections/Creams';
 import Blog from './sections/Blog';
 import FAQ from './sections/FAQ';
 import About from './sections/About';
@@ -83,9 +85,11 @@ function App() {
       <main>
         <Hero />
         <SubHero />
-        <VideoSection />
         <Products onAddToCart={handleAddToCart} />
-        <Features />
+        <VideoSection />
+        <Packs onAddToCart={(pack: Pack) => handleAddToCart(pack as unknown as Product, '50ml')} />
+        <BrandStory />
+        <Creams onAddToCart={(cream: Cream) => handleAddToCart(cream as unknown as Product, '50ml')} />
         <Blog />
         <FAQ />
         <About />
