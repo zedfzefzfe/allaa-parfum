@@ -54,9 +54,9 @@ const Hero = () => {
               }`}
               style={{ transitionDelay: '300ms' }}
             >
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-[2px] bg-gradient-to-r from-[#C9A84C] to-transparent" />
-                <span className="text-xs md:text-sm tracking-[0.3em] font-light uppercase text-[#C9A84C]">
+              <div className="flex items-center gap-2 mb-4 md:mb-8">
+                <div className="w-8 md:w-12 h-[2px] bg-gradient-to-r from-[#C9A84C] to-transparent" />
+                <span className="text-[9px] md:text-sm tracking-[0.25em] md:tracking-[0.3em] font-light uppercase text-[#C9A84C]">
                   {heroConfig.tagline}
                 </span>
               </div>
@@ -64,7 +64,7 @@ const Hero = () => {
 
             {/* Title */}
             <h1
-              className={`font-serif text-5xl md:text-6xl lg:text-7xl leading-tight transition-all duration-1000 mb-8 text-white ${
+              className={`font-serif text-3xl md:text-6xl lg:text-7xl leading-tight transition-all duration-1000 mb-4 md:mb-8 text-white ${
                 isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
               }`}
               style={{ transitionDelay: '400ms' }}
@@ -79,7 +79,7 @@ const Hero = () => {
 
             {/* Decorative line */}
             <div
-              className={`w-16 h-[2px] bg-gradient-to-r from-[#C9A84C] to-transparent mb-8 transition-all duration-1000 ${
+              className={`w-10 md:w-16 h-[2px] bg-gradient-to-r from-[#C9A84C] to-transparent mb-4 md:mb-8 transition-all duration-1000 ${
                 isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
               }`}
               style={{ transitionDelay: '500ms', transformOrigin: 'left' }}
@@ -99,7 +99,7 @@ const Hero = () => {
                     e.preventDefault();
                     document.querySelector(heroConfig.ctaPrimaryTarget)?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="group px-8 md:px-12 py-4 md:py-5 bg-[#C9A84C] text-black font-light tracking-wider text-sm uppercase relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A84C]/40 hover:-translate-y-1"
+                  className="group px-5 md:px-12 py-3 md:py-5 bg-[#C9A84C] text-black font-light tracking-wider text-xs md:text-sm uppercase relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A84C]/40 hover:-translate-y-1"
                 >
                   <span className="relative z-10">{heroConfig.ctaPrimaryText}</span>
                   <div className="absolute inset-0 bg-white/20 -translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
@@ -112,7 +112,7 @@ const Hero = () => {
                     e.preventDefault();
                     document.querySelector(heroConfig.ctaSecondaryTarget)?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="group px-8 md:px-12 py-4 md:py-5 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-wider text-sm uppercase relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A84C]/30 hover:-translate-y-1"
+                  className="group px-5 md:px-12 py-3 md:py-5 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-wider text-xs md:text-sm uppercase relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A84C]/30 hover:-translate-y-1"
                 >
                   <span className="relative z-10">{heroConfig.ctaSecondaryText}</span>
                   <div className="absolute inset-0 bg-[#C9A84C] -translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0" />

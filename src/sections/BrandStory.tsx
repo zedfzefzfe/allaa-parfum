@@ -26,6 +26,7 @@ const BrandStory = () => {
 
   return (
     <section
+      id="brandstory"
       ref={sectionRef}
       className="relative w-full overflow-hidden"
       style={{ height: '45vh', minHeight: '360px', maxHeight: '500px' }}

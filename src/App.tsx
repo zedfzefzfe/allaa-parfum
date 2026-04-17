@@ -9,9 +9,7 @@ import Products from './sections/Products';
 import Packs from './sections/Packs';
 import BrandStory from './sections/BrandStory';
 import Creams from './sections/Creams';
-import Blog from './sections/Blog';
 import FAQ from './sections/FAQ';
-import About from './sections/About';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 
@@ -90,9 +88,7 @@ function App() {
         <Packs onAddToCart={(pack: Pack) => handleAddToCart(pack as unknown as Product, '50ml')} />
         <BrandStory />
         <Creams onAddToCart={(cream: Cream) => handleAddToCart(cream as unknown as Product, '50ml')} />
-        <Blog />
         <FAQ />
-        <About />
         <Contact />
       </main>
       <Footer />

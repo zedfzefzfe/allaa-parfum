@@ -32,6 +32,7 @@ const VideoSection = () => {
 
   return (
     <section
+      id="video"
       ref={sectionRef}
       className="relative w-full overflow-hidden"
       style={{ height: '100svh', minHeight: '600px' }}

@@ -42,8 +42,10 @@ export const navigationConfig: NavigationConfig = {
   logoImage: "/images/logo.png",
   menuLinks: [
     { label: "Collections", href: "#products" },
-    { label: "Notre Histoire", href: "#about" },
-    { label: "Journal", href: "#blog" },
+    { label: "Coffrets", href: "#packs" },
+    { label: "Soins", href: "#creams" },
+    { label: "Notre Histoire", href: "#subhero" },
+    { label: "FAQ", href: "#faq" },
     { label: "Contact", href: "#contact" },
   ],
   socialLinks: [
@@ -772,7 +774,6 @@ export const footerConfig: FooterConfig = {
       title: "Entreprise",
       links: [
         { label: "Notre Histoire", href: "#about" },
-        { label: "Journal", href: "#blog" },
         { label: "Carrières", href: "#contact" },
         { label: "Presse", href: "#contact" },
       ],

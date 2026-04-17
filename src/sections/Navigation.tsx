@@ -65,33 +65,66 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
           isScrolled ? 'bg-[#0a0a0a]/95 backdrop-blur-sm shadow-lg shadow-black/20' : 'bg-transparent'
         } ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}
       >
-        <div className="flex items-center justify-between h-[120px] md:h-[140px] px-6 md:px-12 lg:px-[60px]">
-          <a
-            href="#hero"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('#hero');
-            }}
-            className="gold-glow-hover inline-flex items-center h-full"
-            aria-label={navigationConfig.brandName}
-          >
-            {navigationConfig.logoImage ? (
-              <img
-                src={navigationConfig.logoImage}
-                alt={navigationConfig.brandName}
-                className="block h-[1200px] md:h-[1300px] w-auto max-w-[320px] object-contain"
-              />
-            ) : (
-              <span
-                className="font-serif text-xl md:text-2xl tracking-wider"
-                style={{ color: isScrolled ? '#C9A84C' : '#fff' }}
-              >
-                {navigationConfig.brandName}
-              </span>
-            )}
-          </a>
+        {/* ── Mobile layout: [hamburger | centered logo | cart] ── */}
+        {/* ── Desktop layout: [logo | cart + hamburger] ── */}
+        <div className="flex items-center h-[120px] md:h-[140px] px-6 md:px-12 lg:px-[60px]">
 
-          <div className="flex items-center gap-6">
+          {/* Column 1 — hamburger on mobile, logo on desktop */}
+          <div className="flex-1 lg:flex-none flex justify-start items-center h-full">
+            {/* Hamburger — mobile only */}
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              className="lg:hidden flex flex-col gap-1.5 w-7 btn-hover"
+            >
+              <span className={`h-[2px] w-full transition-all duration-300 ${isScrolled ? 'bg-[#C9A84C]' : 'bg-white'}`} />
+              <span className={`h-[2px] w-full transition-all duration-300 ${isScrolled ? 'bg-[#C9A84C]' : 'bg-white'}`} />
+            </button>
+
+            {/* Logo — desktop only */}
+            <a
+              href="#hero"
+              onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
+              className="hidden lg:inline-flex gold-glow-hover items-center h-full"
+              aria-label={navigationConfig.brandName}
+            >
+              {navigationConfig.logoImage ? (
+                <img
+                  src={navigationConfig.logoImage}
+                  alt={navigationConfig.brandName}
+                  className="block h-[1300px] w-auto max-w-[320px] object-contain"
+                />
+              ) : (
+                <span className="font-serif text-2xl tracking-wider" style={{ color: isScrolled ? '#C9A84C' : '#fff' }}>
+                  {navigationConfig.brandName}
+                </span>
+              )}
+            </a>
+          </div>
+
+          {/* Column 2 — logo centered, mobile only */}
+          <div className="flex-1 lg:hidden flex justify-center items-center h-full">
+            <a
+              href="#hero"
+              onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
+              className="gold-glow-hover inline-flex items-center h-full"
+              aria-label={navigationConfig.brandName}
+            >
+              {navigationConfig.logoImage ? (
+                <img
+                  src={navigationConfig.logoImage}
+                  alt={navigationConfig.brandName}
+                  className="block h-[1200px] w-auto max-w-[160px] object-contain"
+                />
+              ) : (
+                <span className="font-serif text-xl tracking-wider" style={{ color: isScrolled ? '#C9A84C' : '#fff' }}>
+                  {navigationConfig.brandName}
+                </span>
+              )}
+            </a>
+          </div>
+
+          {/* Column 3 — cart always + hamburger desktop only */}
+          <div className="flex-1 flex justify-end items-center gap-6">
             <button
               onClick={() => setIsCartOpen(true)}
               className="relative btn-hover"
@@ -105,22 +138,16 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
               )}
             </button>
 
+            {/* Hamburger — desktop only */}
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="flex flex-col gap-1.5 w-7 btn-hover"
+              className="hidden lg:flex flex-col gap-1.5 w-7 btn-hover"
             >
-              <span
-                className={`h-[2px] w-full transition-all duration-300 ${
-                  isScrolled ? 'bg-[#C9A84C]' : 'bg-white'
-                }`}
-              />
-              <span
-                className={`h-[2px] w-full transition-all duration-300 ${
-                  isScrolled ? 'bg-[#C9A84C]' : 'bg-white'
-                }`}
-              />
+              <span className={`h-[2px] w-full transition-all duration-300 ${isScrolled ? 'bg-[#C9A84C]' : 'bg-white'}`} />
+              <span className={`h-[2px] w-full transition-all duration-300 ${isScrolled ? 'bg-[#C9A84C]' : 'bg-white'}`} />
             </button>
           </div>
+
         </div>
       </nav>
 
@@ -132,13 +159,13 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
       >
         <div className="absolute inset-0 bg-[#0a0a0a]" />
         <div className="relative h-full flex">
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="absolute top-6 right-6 lg:right-20 z-10 p-2 text-white hover:text-[#C9A84C] transition-colors"
+          >
+            <X size={28} strokeWidth={1.5} />
+          </button>
           <div className="flex-1 flex flex-col justify-center items-center px-8 lg:px-20">
-            <button
-              onClick={() => setIsMenuOpen(false)}
-              className="absolute top-6 right-6 lg:right-20 p-2 text-white hover:text-[#C9A84C] transition-colors"
-            >
-              <X size={28} strokeWidth={1.5} />
-            </button>
 
             <div className="w-full max-w-md mb-8">
               <div className="relative">

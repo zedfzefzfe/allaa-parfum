@@ -1,15 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { subHeroConfig } from '../config';
-import BottleReveal from '../components/BottleReveal';
 
 
 const SubHero = () => {
   if (!subHeroConfig.heading) return null;
 
   const outerRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   // Fade-up animations trigger once when section enters viewport
   useEffect(() => {
@@ -19,28 +16,6 @@ const SubHero = () => {
     );
     if (outerRef.current) observer.observe(outerRef.current);
     return () => observer.disconnect();
-  }, []);
-
-  // Scroll progress drives the bottle animation
-  useEffect(() => {
-    const handleScroll = () => {
-      if (rafRef.current !== null) return;
-      rafRef.current = requestAnimationFrame(() => {
-        rafRef.current = null;
-        const outer = outerRef.current;
-        if (!outer) return;
-        const rect = outer.getBoundingClientRect();
-        const outerHeight = outer.offsetHeight;
-        const viewportHeight = window.innerHeight;
-        setProgress(Math.max(0, Math.min(1, -rect.top / (outerHeight - viewportHeight))));
-      });
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (rafRef.current !== null) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
-    };
   }, []);
 
   const headingLines = subHeroConfig.heading.split('\n');
@@ -71,11 +46,9 @@ const SubHero = () => {
 
   return (
     <section id="subhero" className="relative bg-[#0a0a0a]">
-      {/* 4500px scroll travel for 180-frame animation */}
-      <div ref={outerRef} style={{ height: '4500px' }}>
+      <div ref={outerRef}>
 
-        {/* Sticky wrapper — entire composition stays pinned while user scrolls */}
-        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-start pt-6 md:justify-center md:pt-0">
+        <div className="h-screen overflow-hidden flex flex-col justify-start pt-6 md:justify-center md:pt-0">
 
           {/* Radial glow */}
           <div
@@ -168,7 +141,15 @@ const SubHero = () => {
                 className="flex justify-center items-center py-5 md:py-3 lg:py-0 md:pl-8 lg:pl-0"
                 style={fadeUp(500)}
               >
-                <BottleReveal frameCount={180} progress={progress} />
+                <img
+                  src="/bottle-frames/frame_001.jpg"
+                  alt="Parfum"
+                  className="max-w-[280px] md:max-w-[280px] max-h-[55vh] md:max-h-[75vh] w-auto h-auto block"
+                  style={{
+                    WebkitMaskImage: 'radial-gradient(ellipse 70% 85% at center, black 45%, transparent 100%)',
+                    maskImage: 'radial-gradient(ellipse 70% 85% at center, black 45%, transparent 100%)',
+                  }}
+                />
               </div>
 
               {/* Right vertical gold rule — desktop only */}
