@@ -48,7 +48,7 @@ const SubHero = () => {
     <section id="subhero" className="relative bg-[#0a0a0a]">
       <div ref={outerRef}>
 
-        <div className="h-screen overflow-hidden flex flex-col justify-start pt-6 md:justify-center md:pt-0">
+        <div className="min-h-screen md:h-screen md:overflow-hidden flex flex-col justify-start pt-6 md:justify-center md:pt-0">
 
           {/* Radial glow */}
           <div
@@ -144,7 +144,7 @@ const SubHero = () => {
                 <img
                   src="/bottle-frames/frame_001.jpg"
                   alt="Parfum"
-                  className="max-w-[280px] md:max-w-[280px] max-h-[55vh] md:max-h-[75vh] w-auto h-auto block"
+                  className="w-full max-w-[280px] h-auto mx-auto block"
                   style={{
                     WebkitMaskImage: 'radial-gradient(ellipse 70% 85% at center, black 45%, transparent 100%)',
                     maskImage: 'radial-gradient(ellipse 70% 85% at center, black 45%, transparent 100%)',
