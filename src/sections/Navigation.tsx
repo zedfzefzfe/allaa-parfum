@@ -157,7 +157,11 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
           isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
-        <div className="absolute inset-0 bg-[#0a0a0a]" />
+        <div
+          className="absolute inset-0 lg:hidden bg-cover bg-center"
+          style={{ backgroundImage: `url(${navigationConfig.menuBackgroundImage})` }}
+        />
+        <div className="absolute inset-0 bg-[#0a0a0a]/80 lg:bg-[#0a0a0a]" />
         <div className="relative h-full flex">
           <button
             onClick={() => setIsMenuOpen(false)}
@@ -217,17 +221,6 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
             </div>
           </div>
 
-          {navigationConfig.menuBackgroundImage && (
-            <div
-              className="hidden lg:block w-[40%] bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${navigationConfig.menuBackgroundImage})`,
-                opacity: isMenuOpen ? 1 : 0,
-                transform: isMenuOpen ? 'translateX(0)' : 'translateX(100%)',
-                transition: 'all 0.7s ease 0.2s',
-              }}
-            />
-          )}
         </div>
       </div>
 

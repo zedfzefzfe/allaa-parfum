@@ -57,7 +57,7 @@ export const navigationConfig: NavigationConfig = {
   cartEmptyText: "Votre panier est vide",
   cartCheckoutText: "Procéder au paiement",
   continueShoppingText: "Continuer les achats",
-  menuBackgroundImage: "/images/hero-bg.jpg",
+  menuBackgroundImage: "/bottle-frames/frame_001.jpg",
 };
 
 // ─── Hero ────────────────────────────────────────────────────────────────────

@@ -114,11 +114,8 @@ const Hero = () => {
                   }}
                   className="group px-5 md:px-12 py-3 md:py-5 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-wider text-xs md:text-sm uppercase relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A84C]/30 hover:-translate-y-1"
                 >
-                  <span className="relative z-10">{heroConfig.ctaSecondaryText}</span>
+                  <span className="relative z-10 group-hover:text-black transition-colors duration-300">{heroConfig.ctaSecondaryText}</span>
                   <div className="absolute inset-0 bg-[#C9A84C] -translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0" />
-                  <div className="absolute inset-0 text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span>{heroConfig.ctaSecondaryText}</span>
-                  </div>
                 </a>
               )}
             </div>
