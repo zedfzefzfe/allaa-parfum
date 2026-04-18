@@ -69,29 +69,19 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
         {/* ── Desktop layout: [logo | cart + hamburger] ── */}
         <div className="flex items-center h-[140px] md:h-[170px] px-6 md:px-12 lg:px-[30px]">
 
-          {/* Column 1 — hamburger on mobile, logo on desktop */}
+          {/* Column 1 — logo always (left on mobile, left on desktop) */}
           <div className="flex-1 lg:flex-none flex justify-start items-center h-full">
-            {/* Hamburger — mobile only */}
-            <button
-              onClick={() => setIsMenuOpen(true)}
-              className="lg:hidden flex flex-col gap-1.5 w-7 btn-hover"
-            >
-              <span className={`h-[2px] w-full transition-all duration-300 ${isScrolled ? 'bg-[#C9A84C]' : 'bg-white'}`} />
-              <span className={`h-[2px] w-full transition-all duration-300 ${isScrolled ? 'bg-[#C9A84C]' : 'bg-white'}`} />
-            </button>
-
-            {/* Logo — desktop only */}
             <a
               href="#hero"
               onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
-              className="hidden lg:inline-flex gold-glow-hover items-center h-full lg:ml-10"
+              className="gold-glow-hover inline-flex items-center h-full lg:ml-10"
               aria-label={navigationConfig.brandName}
             >
               {navigationConfig.logoImage ? (
                 <img
                   src={navigationConfig.logoImage}
                   alt={navigationConfig.brandName}
-                  className="block h-full w-auto max-w-[420px] object-contain py-1"
+                  className="block h-full w-auto max-w-[220px] lg:max-w-[420px] object-contain py-1"
                 />
               ) : (
                 <span className="font-serif text-2xl tracking-wider" style={{ color: isScrolled ? '#C9A84C' : '#fff' }}>
@@ -101,29 +91,7 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
             </a>
           </div>
 
-          {/* Column 2 — logo centered, mobile only */}
-          <div className="flex-1 lg:hidden flex justify-center items-center h-full">
-            <a
-              href="#hero"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
-              className="gold-glow-hover inline-flex items-center h-full"
-              aria-label={navigationConfig.brandName}
-            >
-              {navigationConfig.logoImage ? (
-                <img
-                  src={navigationConfig.logoImage}
-                  alt={navigationConfig.brandName}
-                  className="block h-full w-auto max-w-[140px] object-contain py-1"
-                />
-              ) : (
-                <span className="font-serif text-xl tracking-wider" style={{ color: isScrolled ? '#C9A84C' : '#fff' }}>
-                  {navigationConfig.brandName}
-                </span>
-              )}
-            </a>
-          </div>
-
-          {/* Column 3 — cart always + hamburger desktop only */}
+          {/* Column 2 — cart always + hamburger always */}
           <div className="flex-1 flex justify-end items-center gap-6 lg:mr-10">
             <button
               onClick={() => setIsCartOpen(true)}
@@ -138,10 +106,10 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
               )}
             </button>
 
-            {/* Hamburger — desktop only */}
+            {/* Hamburger — always visible */}
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="hidden lg:flex flex-col gap-1.5 w-7 btn-hover"
+              className="flex flex-col gap-1.5 w-7 btn-hover"
             >
               <span className={`h-[2px] w-full transition-all duration-300 ${isScrolled ? 'bg-[#C9A84C]' : 'bg-white'}`} />
               <span className={`h-[2px] w-full transition-all duration-300 ${isScrolled ? 'bg-[#C9A84C]' : 'bg-white'}`} />
