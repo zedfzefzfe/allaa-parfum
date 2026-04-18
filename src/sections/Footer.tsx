@@ -45,7 +45,7 @@ const Footer = () => {
                 <img
                   src={footerConfig.logoImage}
                   alt={footerConfig.brandName}
-                  className="h-12 w-auto object-contain"
+                  className="h-44 w-auto object-contain"
                 />
               ) : (
                 <h3 className="font-serif text-2xl text-[#C9A84C]">{footerConfig.brandName}</h3>

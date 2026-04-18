@@ -67,7 +67,7 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
       >
         {/* ── Mobile layout: [hamburger | centered logo | cart] ── */}
         {/* ── Desktop layout: [logo | cart + hamburger] ── */}
-        <div className="flex items-center h-[120px] md:h-[140px] px-6 md:px-12 lg:px-[60px]">
+        <div className="flex items-center h-[140px] md:h-[170px] px-6 md:px-12 lg:px-[30px]">
 
           {/* Column 1 — hamburger on mobile, logo on desktop */}
           <div className="flex-1 lg:flex-none flex justify-start items-center h-full">
@@ -84,14 +84,14 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
             <a
               href="#hero"
               onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
-              className="hidden lg:inline-flex gold-glow-hover items-center h-full"
+              className="hidden lg:inline-flex gold-glow-hover items-center h-full lg:ml-10"
               aria-label={navigationConfig.brandName}
             >
               {navigationConfig.logoImage ? (
                 <img
                   src={navigationConfig.logoImage}
                   alt={navigationConfig.brandName}
-                  className="block h-[1300px] w-auto max-w-[320px] object-contain"
+                  className="block h-full w-auto max-w-[420px] object-contain py-1"
                 />
               ) : (
                 <span className="font-serif text-2xl tracking-wider" style={{ color: isScrolled ? '#C9A84C' : '#fff' }}>
@@ -113,7 +113,7 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
                 <img
                   src={navigationConfig.logoImage}
                   alt={navigationConfig.brandName}
-                  className="block h-[1200px] w-auto max-w-[160px] object-contain"
+                  className="block h-full w-auto max-w-[140px] object-contain py-1"
                 />
               ) : (
                 <span className="font-serif text-xl tracking-wider" style={{ color: isScrolled ? '#C9A84C' : '#fff' }}>
@@ -124,7 +124,7 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
           </div>
 
           {/* Column 3 — cart always + hamburger desktop only */}
-          <div className="flex-1 flex justify-end items-center gap-6">
+          <div className="flex-1 flex justify-end items-center gap-6 lg:mr-10">
             <button
               onClick={() => setIsCartOpen(true)}
               className="relative btn-hover"

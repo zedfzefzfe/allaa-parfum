@@ -61,11 +61,6 @@ const VideoSection = () => {
       {/* Left/right fade */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
 
-      {/* ── Corner gold accents ── */}
-      <div className="absolute top-8 left-8 w-12 h-12 border-t border-l border-[#C9A84C]/60" />
-      <div className="absolute top-8 right-8 w-12 h-12 border-t border-r border-[#C9A84C]/60" />
-      <div className="absolute bottom-8 left-8 w-12 h-12 border-b border-l border-[#C9A84C]/60" />
-      <div className="absolute bottom-8 right-8 w-12 h-12 border-b border-r border-[#C9A84C]/60" />
 
       {/* ── Top & bottom gold lines ── */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C]/50 to-transparent" />
