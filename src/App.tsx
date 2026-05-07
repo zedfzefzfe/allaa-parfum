@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { siteConfig } from './config';
-import type { Product, Pack, Cream } from './config';
+import type { Product, Pack } from './config';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
 import SubHero from './sections/SubHero';
@@ -10,7 +10,6 @@ import Packs from './sections/Packs';
 import BrandStory from './sections/BrandStory';
 import ShopCollections from './sections/ShopCollections';
 import CollectionCarousel from './sections/CollectionCarousel';
-import Creams from './sections/Creams';
 import FAQ from './sections/FAQ';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';

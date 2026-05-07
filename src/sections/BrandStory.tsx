@@ -86,7 +86,7 @@ const BrandStory = () => {
           {/* gold rule — wider & thicker */}
           <div
             className="mt-7 mb-8"
-            style={{ width: '40px', height: '2px', background: '#C9A84C', opacity: 0.7, ...fadeUp(320) }}
+            style={{ width: '40px', height: '2px', background: '#C9A84C', ...fadeUp(320), opacity: isVisible ? 0.7 : 0 }}
           />
 
           {/* paragraphs */}
