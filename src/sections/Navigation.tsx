@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { ShoppingBag, X, Search, Instagram, Facebook, Twitter } from 'lucide-react';
 import { navigationConfig } from '../config';
+import OrderModal from '../components/OrderModal';
 
 interface CartItem {
   id: number;
@@ -28,6 +29,7 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const lastScrollY = useRef(0);
@@ -279,7 +281,10 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
                   <span className="text-lg text-white">Subtotal</span>
                   <span className="font-serif text-xl text-[#C9A84C]">${totalPrice.toFixed(2)}</span>
                 </div>
-                <button className="w-full py-4 bg-[#C9A84C] text-black font-light tracking-widest btn-hover">
+                <button
+                  onClick={() => { setIsCartOpen(false); setIsOrderOpen(true); }}
+                  className="w-full py-4 bg-[#C9A84C] text-black font-light tracking-widest btn-hover"
+                >
                   {navigationConfig.cartCheckoutText}
                 </button>
                 <button
@@ -293,6 +298,13 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
           </div>
         </div>
       </div>
+      {isOrderOpen && (
+        <OrderModal
+          cartItems={cartItems}
+          totalPrice={totalPrice}
+          onClose={() => setIsOrderOpen(false)}
+        />
+      )}
     </>
   );
 };

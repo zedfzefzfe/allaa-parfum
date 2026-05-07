@@ -129,7 +129,7 @@ const Packs = ({ onAddToCart }: PacksProps) => {
                   />
 
                   {/* Savings badge */}
-                  <div className="absolute top-4 left-4 bg-[#C9A84C] text-black text-xs font-bold px-3 py-1 tracking-wide">
+                  <div className="absolute top-4 left-4 bg-[#C9A84C] text-black text-xs font-medium px-3 py-1 tracking-widest">
                     -{savings(pack)}%
                   </div>
 
@@ -215,7 +215,7 @@ const Packs = ({ onAddToCart }: PacksProps) => {
                   alt={selectedPack.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-4 left-4 bg-[#C9A84C] text-black text-xs font-bold px-3 py-1 tracking-wide">
+                <div className="absolute top-4 left-4 bg-[#C9A84C] text-black text-xs font-medium px-3 py-1 tracking-widest">
                   -{savings(selectedPack)}%
                 </div>
               </div>

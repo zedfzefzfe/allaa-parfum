@@ -84,7 +84,7 @@ const Features = () => {
 
               {/* Roman numeral watermark */}
               <div
-                className="absolute -top-4 -right-2 font-serif text-[100px] lg:text-[120px] font-bold leading-none select-none pointer-events-none transition-all duration-500"
+                className="absolute -top-4 -right-2 font-serif text-[100px] lg:text-[120px] font-light leading-none select-none pointer-events-none transition-all duration-500"
                 style={{
                   color: '#C9A84C',
                   opacity: isHovered ? 0.07 : 0.035,

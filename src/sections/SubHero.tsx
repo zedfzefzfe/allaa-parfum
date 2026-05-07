@@ -62,7 +62,7 @@ const SubHero = () => {
             aria-hidden
           >
             <span
-              className="font-serif text-[18vw] md:text-[15vw] font-bold uppercase tracking-widest whitespace-nowrap"
+              className="font-serif text-[18vw] md:text-[15vw] font-light uppercase tracking-widest whitespace-nowrap"
               style={{ color: '#C9A84C', opacity: 0.025 }}
             >
               PHILOSOPHIE

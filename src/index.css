@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&display=swap');
+/* Fonts loaded via index.html <link> for optimal preconnect */
 
 @tailwind base;
 @tailwind components;
@@ -37,7 +37,8 @@
     --alaa-gold-dim: #8B7355;
     
     --font-serif: 'Cormorant Garamond', serif;
-    --font-sans: 'Inter', sans-serif;
+    --font-sans: 'Jost', sans-serif;
+    --font-accent: 'Playfair Display', serif;
   }
 }
 
@@ -54,40 +55,93 @@
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
     font-weight: 300;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--alaa-black);
-    color: var(--alaa-white);
+    color: rgba(255, 255, 255, 0.72);
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
-    font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: 0.02em;
-  }
-  
-  h1 {
-    font-size: clamp(2.8rem, 6vw, 5rem);
-  }
-  
-  h2 {
-    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-  }
-  
-  h3 {
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-  }
-  
-  h4 {
-    font-size: 1.25rem;
-  }
-  
-  p {
-    font-size: clamp(0.9rem, 1.5vw, 1rem);
     font-weight: 300;
-    line-height: 1.7;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--alaa-white);
+  }
+
+  h1 {
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  h2 {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-size: clamp(22px, 2.5vw, 36px);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  h4 {
+    font-size: clamp(16px, 1.5vw, 22px);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  p {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  /* Navigation links */
+  nav a, nav button, nav span {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Buttons */
+  button, .btn, a[class*="btn"] {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* Label / eyebrow overrides via utility class */
+  .label-eyebrow {
+    font-family: var(--font-sans);
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--alaa-gold);
+  }
+
+  /* Italic accent */
+  .accent-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--alaa-gold);
   }
 }
 
@@ -95,9 +149,15 @@
   .font-serif {
     font-family: var(--font-serif);
   }
-  
+
   .font-sans {
     font-family: var(--font-sans);
+  }
+
+  .font-accent {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-weight: 400;
   }
   
   .text-gold {

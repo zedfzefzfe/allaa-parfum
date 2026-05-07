@@ -37,14 +37,22 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+    const message = [
+      '✉️ *Message Contact — Alaa Parfum*',
+      '',
+      `👤 *Nom:* ${formData.name}`,
+      `📧 *Email:* ${formData.email}`,
+      '',
+      `💬 *Message:*\n${formData.message}`,
+    ].join('\n');
 
-      setTimeout(() => setIsSubmitted(false), 5000);
-    }, 1500);
+    const url = `https://wa.me/212700099462?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    setFormData({ name: '', email: '', message: '' });
+    setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   return (

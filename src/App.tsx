@@ -8,6 +8,8 @@ import VideoSection from './sections/VideoSection';
 import Products from './sections/Products';
 import Packs from './sections/Packs';
 import BrandStory from './sections/BrandStory';
+import ShopCollections from './sections/ShopCollections';
+import CollectionCarousel from './sections/CollectionCarousel';
 import Creams from './sections/Creams';
 import FAQ from './sections/FAQ';
 import Contact from './sections/Contact';
@@ -82,12 +84,16 @@ function App() {
       />
       <main>
         <Hero />
-        <SubHero />
+       <SubHero />
+
+        <ShopCollections />
+        <CollectionCarousel />
         <Products onAddToCart={handleAddToCart} />
         <VideoSection />
         <Packs onAddToCart={(pack: Pack) => handleAddToCart(pack as unknown as Product, '50ml')} />
-        <BrandStory />
-        <Creams onAddToCart={(cream: Cream) => handleAddToCart(cream as unknown as Product, '50ml')} />
+         <BrandStory />
+
+
         <FAQ />
         <Contact />
       </main>
