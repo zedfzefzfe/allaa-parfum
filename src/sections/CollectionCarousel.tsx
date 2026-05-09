@@ -1,36 +1,36 @@
 const cards = [
   {
-    image: '/images/perfume-1.jpg',
+    image: '/images/perfume_bottle_1_with_logo.jpg.png',
     category: 'PARFUM · SAFRAN · OUD',
     name: 'Aurum Noir',
     price: '485 MAD',
   },
   {
-    image: '/images/perfume-2.jpg',
+    image: '/images/Bottle Swap (2).png',
     category: 'PARFUM · ROSE · MUSC',
     name: "Rose d'Or",
     price: '420 MAD',
   },
   {
-    image: '/images/perfume-3.jpg',
+    image: '/images/bottle_3_logo.jpg.png',
     category: 'PARFUM · BERGAMOTE · CÈDRE',
     name: 'Lumière Éternelle',
     price: '395 MAD',
   },
   {
-    image: '/images/perfume-4.jpg',
+    image: '/images/perfume_bottle_logo_applied.jpg.png',
     category: 'PARFUM · CÈDRE · AGAR',
     name: 'Bois Précieux',
     price: '450 MAD',
   },
   {
-    image: '/images/perfume-5.jpg',
+    image: '/images/bottle_4_logo.jpg.png',
     category: 'PARFUM · IRIS · CUIR',
     name: 'Velours Impérial',
     price: '520 MAD',
   },
   {
-    image: '/images/perfume-6.jpg',
+    image: '/images/perfume_bottle_logo_replacement.jpg.png',
     category: 'PARFUM · TRUFFE · ENCENS',
     name: 'Règne Suprême',
     price: '580 MAD',
