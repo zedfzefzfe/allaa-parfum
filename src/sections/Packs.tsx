@@ -51,33 +51,44 @@ const Packs = ({ onAddToCart }: PacksProps) => {
         ref={sectionRef}
         className="py-24 md:py-32 bg-[#0a0a0a]"
       >
-        {/* Top accent */}
-        <div className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C]/20 to-transparent" />
 
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[60px]">
 
           {/* Header */}
-          <div className="text-center mb-12">
-            <span
-              className={`inline-block mb-4 text-sm tracking-[0.3em] text-[#C9A84C] font-medium uppercase transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              {packsConfig.tag}
-            </span>
+          <div className="text-center mb-16">
+            {/* Eyebrow with flanking lines */}
+            <div className={`flex items-center justify-center gap-5 mb-7 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <span className="w-10 h-px bg-[#C9A84C] opacity-40" />
+              <span className="text-[10px] tracking-[0.5em] text-[#C9A84C] font-light uppercase">{packsConfig.tag}</span>
+              <span className="w-10 h-px bg-[#C9A84C] opacity-40" />
+            </div>
+
+            {/* Title */}
             <h2
-              className={`font-serif text-4xl md:text-5xl text-white mb-6 transition-all duration-700 ${
+              className={`font-serif font-light italic text-5xl md:text-6xl lg:text-[72px] text-white leading-[1.05] tracking-[-0.02em] mb-5 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
-              style={{ transitionDelay: '200ms' }}
+              style={{ transitionDelay: '150ms' }}
             >
               {packsConfig.heading}
             </h2>
+
+            {/* Gold ornament */}
+            <div
+              className={`flex items-center justify-center gap-3 mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              style={{ transitionDelay: '300ms' }}
+            >
+              <span className="w-14 h-px bg-[#C9A84C] opacity-30" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] opacity-60" />
+              <span className="w-14 h-px bg-[#C9A84C] opacity-30" />
+            </div>
+
+            {/* Description */}
             <p
-              className={`max-w-2xl mx-auto text-gray-400 text-lg transition-all duration-700 ${
+              className={`max-w-xl mx-auto text-[15px] leading-relaxed tracking-wide font-light transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
-              style={{ transitionDelay: '400ms' }}
+              style={{ transitionDelay: '400ms', color: 'rgba(255,255,255,0.5)' }}
             >
               {packsConfig.description}
             </p>
@@ -161,19 +172,16 @@ const Packs = ({ onAddToCart }: PacksProps) => {
                 </div>
 
                 {/* Info */}
-                <div className="p-5 bg-[#111111]">
-                  <span className="text-xs text-[#C9A84C]/70 tracking-wide uppercase">{pack.category}</span>
+                <div className="p-6 bg-[#111111]">
+                  <span className="text-[11px] text-[#C9A84C]/70 tracking-[0.3em] uppercase font-sans">{pack.category}</span>
                   <h3 className="font-serif text-xl text-white mt-1 group-hover:text-[#C9A84C] transition-colors">
                     {pack.name}
                   </h3>
-                  <div className="flex items-center gap-3 mt-2">
-                    <span className="text-[#C9A84C] font-medium">{pack.price.toFixed(2)} €</span>
-                    <span className="text-gray-500 text-sm line-through">{pack.originalPrice.toFixed(2)} €</span>
+                  <div className="flex items-center gap-3 mt-3">
+                    <span className="text-[#C9A84C] font-bold text-xl tracking-wide">{pack.price} dh</span>
+                    <span className="text-gray-500 text-sm line-through">{pack.originalPrice} dh</span>
                   </div>
-                  {/* Includes preview */}
-                  <p className="text-gray-500 text-xs mt-2 tracking-wide">
-                    {pack.includes.slice(0, 2).join(' · ')}{pack.includes.length > 2 ? ` · +${pack.includes.length - 2}` : ''}
-                  </p>
+                  <p className="text-gray-400 text-sm mt-2 tracking-wider font-sans">30 ml</p>
                 </div>
               </div>
             ))}
@@ -187,7 +195,10 @@ const Packs = ({ onAddToCart }: PacksProps) => {
               }`}
               style={{ transitionDelay: '1200ms' }}
             >
-              <button className="px-12 py-4 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-widest text-sm hover:bg-[#C9A84C] hover:text-black transition-all duration-300">
+              <button
+                onClick={() => document.querySelector('#packs')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-12 py-4 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-widest text-sm hover:bg-[#C9A84C] hover:text-black transition-all duration-300"
+              >
                 {packsConfig.viewAllText}
               </button>
             </div>
@@ -224,30 +235,23 @@ const Packs = ({ onAddToCart }: PacksProps) => {
               <div className="p-8">
                 <span className="text-xs text-[#C9A84C]/70 tracking-wide uppercase">{selectedPack.category}</span>
                 <h2 className="font-serif text-3xl text-white mt-2">{selectedPack.name}</h2>
-                <p className="text-gray-400 mt-4 leading-relaxed">{selectedPack.description}</p>
+                <p className="text-gray-400 mt-4 leading-relaxed text-sm">{selectedPack.description}</p>
 
-                {/* Includes list */}
+                {/* Size Selector */}
                 <div className="mt-8">
-                  <h4 className="text-[#C9A84C] text-sm tracking-wide uppercase mb-3">Ce Coffret Comprend</h4>
-                  <ul className="space-y-2">
-                    {selectedPack.includes.map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-gray-300 text-sm">
-                        <div className="w-1.5 h-1.5 bg-[#C9A84C] rotate-45 flex-shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <h4 className="text-[#C9A84C] text-sm tracking-wide uppercase mb-3">Choisir la Taille</h4>
+                  <div className="flex gap-3">
+                    <button className="px-4 py-2 text-sm border bg-[#C9A84C] text-black border-[#C9A84C]">
+                      30ml
+                    </button>
+                  </div>
                 </div>
 
                 {/* Price and Add to Cart */}
                 <div className="mt-8 pt-6 border-t border-[#C9A84C]/20">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-400">Prix Coffret</span>
-                    <span className="font-serif text-2xl text-[#C9A84C]">{selectedPack.price.toFixed(2)} €</span>
-                  </div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-gray-500 text-sm">Valeur individuelle</span>
-                    <span className="text-gray-500 text-sm line-through">{selectedPack.originalPrice.toFixed(2)} €</span>
+                    <span className="text-gray-400">Prix</span>
+                    <span className="font-serif text-2xl text-[#C9A84C]">{selectedPack.price} dh</span>
                   </div>
                   <button
                     onClick={() => {

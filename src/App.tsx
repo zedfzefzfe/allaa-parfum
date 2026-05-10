@@ -32,7 +32,7 @@ const sizeMultipliers: Record<string, number> = {
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const handleAddToCart = useCallback((product: Product, size: string = '50ml') => {
+  const handleAddToCart = useCallback((product: Product, size: string = '30ml') => {
     const sizePrice = Math.round(product.price * sizeMultipliers[size]);
     
     setCartItems((prevItems) => {
@@ -89,10 +89,8 @@ function App() {
         <CollectionCarousel />
         <Products onAddToCart={handleAddToCart} />
         <VideoSection />
-        <Packs onAddToCart={(pack: Pack) => handleAddToCart(pack as unknown as Product, '50ml')} />
+        <Packs onAddToCart={(pack: Pack) => handleAddToCart(pack as unknown as Product, '30ml')} />
          <BrandStory />
-
-
         <FAQ />
         <Contact />
       </main>

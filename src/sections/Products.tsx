@@ -21,7 +21,7 @@ const Products = ({ onAddToCart }: ProductsProps) => {
   const [activeCategory, setActiveCategory] = useState(productsConfig.categories[0] || 'All');
   const [addedItems, setAddedItems] = useState<number[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [selectedSize, setSelectedSize] = useState<string>('50ml');
+  const [selectedSize, setSelectedSize] = useState<string>('30ml');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,7 +55,7 @@ const Products = ({ onAddToCart }: ProductsProps) => {
 
   const openProductModal = (product: Product) => {
     setSelectedProduct(product);
-    setSelectedSize('50ml');
+    setSelectedSize('30ml');
   };
 
   const closeProductModal = () => {
@@ -75,27 +75,40 @@ const Products = ({ onAddToCart }: ProductsProps) => {
       >
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[60px]">
           {/* Header */}
-          <div className="text-center mb-12">
-            <span
-              className={`inline-block mb-4 text-sm tracking-[0.3em] text-[#C9A84C] font-medium uppercase transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              {productsConfig.tag}
-            </span>
+          <div className="text-center mb-16">
+            {/* Eyebrow with flanking lines */}
+            <div className={`flex items-center justify-center gap-5 mb-7 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <span className="w-10 h-px bg-[#C9A84C] opacity-40" />
+              <span className="text-[10px] tracking-[0.5em] text-[#C9A84C] font-light uppercase">{productsConfig.tag}</span>
+              <span className="w-10 h-px bg-[#C9A84C] opacity-40" />
+            </div>
+
+            {/* Title */}
             <h2
-              className={`font-serif text-4xl md:text-5xl text-white mb-6 transition-all duration-700 ${
+              className={`font-serif font-light italic text-5xl md:text-6xl lg:text-[72px] text-white leading-[1.05] tracking-[-0.02em] mb-5 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
-              style={{ transitionDelay: '200ms' }}
+              style={{ transitionDelay: '150ms' }}
             >
               {productsConfig.heading}
             </h2>
+
+            {/* Gold ornament */}
+            <div
+              className={`flex items-center justify-center gap-3 mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              style={{ transitionDelay: '300ms' }}
+            >
+              <span className="w-14 h-px bg-[#C9A84C] opacity-30" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] opacity-60" />
+              <span className="w-14 h-px bg-[#C9A84C] opacity-30" />
+            </div>
+
+            {/* Description */}
             <p
-              className={`max-w-2xl mx-auto text-gray-400 text-lg transition-all duration-700 ${
+              className={`max-w-xl mx-auto text-[15px] leading-relaxed tracking-wide font-light transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
-              style={{ transitionDelay: '400ms' }}
+              style={{ transitionDelay: '400ms', color: 'rgba(255,255,255,0.5)' }}
             >
               {productsConfig.description}
             </p>
@@ -156,7 +169,7 @@ const Products = ({ onAddToCart }: ProductsProps) => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart(product, '50ml');
+                      handleAddToCart(product, '30ml');
                     }}
                     className={`absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 flex items-center gap-2 text-sm tracking-wide transition-all duration-300 ${
                       addedItems.includes(product.id)
@@ -179,10 +192,16 @@ const Products = ({ onAddToCart }: ProductsProps) => {
                 </div>
 
                 {/* Product Info */}
-                <div className="p-5 bg-[#111111]">
-                  <span className="text-xs text-[#C9A84C]/70 tracking-wide uppercase">{product.category}</span>
+                <div className="p-6 bg-[#111111]">
+                  <span className="text-[11px] text-[#C9A84C]/70 tracking-[0.3em] uppercase font-sans">{product.category}</span>
                   <h3 className="font-serif text-xl text-white mt-1 group-hover:text-[#C9A84C] transition-colors">{product.name}</h3>
-                  <p className="text-[#C9A84C] font-medium mt-2">From ${product.price.toFixed(2)}</p>
+                  <div className="flex items-center gap-3 mt-3">
+                    <span className="text-[#C9A84C] font-bold text-xl tracking-wide">{product.price} dh</span>
+                    <span className="text-gray-500 text-sm line-through">69 dh</span>
+                  </div>
+                  <p className="text-gray-400 text-sm mt-2 tracking-wider font-sans">
+                    {product.topNotes.slice(0, 3).join(' · ')}
+                  </p>
                 </div>
               </div>
             ))}
@@ -196,7 +215,10 @@ const Products = ({ onAddToCart }: ProductsProps) => {
               }`}
               style={{ transitionDelay: '1200ms' }}
             >
-              <button className="px-12 py-4 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-widest text-sm hover:bg-[#C9A84C] hover:text-black transition-all duration-300">
+              <button
+                onClick={() => document.querySelector('#products')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-12 py-4 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-widest text-sm hover:bg-[#C9A84C] hover:text-black transition-all duration-300"
+              >
                 {productsConfig.viewAllText}
               </button>
             </div>
@@ -228,81 +250,31 @@ const Products = ({ onAddToCart }: ProductsProps) => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               {/* Product Details */}
               <div className="p-8">
                 <span className="text-xs text-[#C9A84C]/70 tracking-wide uppercase">{selectedProduct.category}</span>
                 <h2 className="font-serif text-3xl text-white mt-2">{selectedProduct.name}</h2>
-                <p className="text-gray-400 mt-4 leading-relaxed">{selectedProduct.description}</p>
-                
-                {/* Scent Notes */}
-                <div className="mt-8 space-y-4">
-                  {selectedProduct.topNotes && (
-                    <div>
-                      <h4 className="text-[#C9A84C] text-sm tracking-wide uppercase mb-2">Top Notes</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProduct.topNotes.map((note) => (
-                          <span key={note} className="px-3 py-1 bg-[#0a0a0a] text-gray-300 text-sm border border-[#C9A84C]/20">
-                            {note}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  
-                  {selectedProduct.heartNotes && (
-                    <div>
-                      <h4 className="text-[#C9A84C] text-sm tracking-wide uppercase mb-2">Heart Notes</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProduct.heartNotes.map((note) => (
-                          <span key={note} className="px-3 py-1 bg-[#0a0a0a] text-gray-300 text-sm border border-[#C9A84C]/20">
-                            {note}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  
-                  {selectedProduct.baseNotes && (
-                    <div>
-                      <h4 className="text-[#C9A84C] text-sm tracking-wide uppercase mb-2">Base Notes</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedProduct.baseNotes.map((note) => (
-                          <span key={note} className="px-3 py-1 bg-[#0a0a0a] text-gray-300 text-sm border border-[#C9A84C]/20">
-                            {note}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-                
+                <p className="text-gray-400 mt-4 leading-relaxed text-sm">{selectedProduct.description}</p>
+
                 {/* Size Selector */}
                 <div className="mt-8">
-                  <h4 className="text-[#C9A84C] text-sm tracking-wide uppercase mb-3">Select Size</h4>
+                  <h4 className="text-[#C9A84C] text-sm tracking-wide uppercase mb-3">Choisir la Taille</h4>
                   <div className="flex gap-3">
-                    {['30ml', '50ml', '100ml'].map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className={`px-4 py-2 text-sm border transition-all ${
-                          selectedSize === size
-                            ? 'bg-[#C9A84C] text-black border-[#C9A84C]'
-                            : 'bg-transparent text-gray-400 border-[#C9A84C]/30 hover:border-[#C9A84C]'
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
+                    <button
+                      className="px-4 py-2 text-sm border bg-[#C9A84C] text-black border-[#C9A84C]"
+                    >
+                      30ml
+                    </button>
                   </div>
                 </div>
                 
                 {/* Price and Add to Cart */}
                 <div className="mt-8 pt-6 border-t border-[#C9A84C]/20">
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-gray-400">Price</span>
+                    <span className="text-gray-400">Prix</span>
                     <span className="font-serif text-2xl text-[#C9A84C]">
-                      ${getPriceForSize(selectedProduct.price, selectedSize).toFixed(2)}
+                      {selectedProduct.price} dh
                     </span>
                   </div>
                   <button
@@ -313,7 +285,7 @@ const Products = ({ onAddToCart }: ProductsProps) => {
                     className="w-full py-4 bg-[#C9A84C] text-black font-light tracking-widest btn-hover flex items-center justify-center gap-2"
                   >
                     <ShoppingBag size={18} />
-                    ADD TO CART
+                    AJOUTER AU PANIER
                   </button>
                 </div>
               </div>

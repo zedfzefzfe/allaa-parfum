@@ -156,7 +156,7 @@ const Creams = ({ onAddToCart }: CreamsProps) => {
                   <h3 className="font-serif text-xl text-white mt-1 group-hover:text-[#C9A84C] transition-colors">
                     {cream.name}
                   </h3>
-                  <p className="text-[#C9A84C] font-medium mt-2">{cream.price.toFixed(2)} €</p>
+                  <p className="text-[#C9A84C] font-medium mt-2">{cream.price} dh</p>
                 </div>
               </div>
             ))}
@@ -170,7 +170,10 @@ const Creams = ({ onAddToCart }: CreamsProps) => {
               }`}
               style={{ transitionDelay: '1200ms' }}
             >
-              <button className="px-12 py-4 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-widest text-sm hover:bg-[#C9A84C] hover:text-black transition-all duration-300">
+              <button
+                onClick={() => document.querySelector('#creams')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-12 py-4 border-2 border-[#C9A84C] text-[#C9A84C] font-light tracking-widest text-sm hover:bg-[#C9A84C] hover:text-black transition-all duration-300"
+              >
                 {creamsConfig.viewAllText}
               </button>
             </div>
@@ -248,7 +251,7 @@ const Creams = ({ onAddToCart }: CreamsProps) => {
                 <div className="mt-8 pt-6 border-t border-[#C9A84C]/20">
                   <div className="flex items-center justify-between mb-6">
                     <span className="text-gray-400">Prix</span>
-                    <span className="font-serif text-2xl text-[#C9A84C]">{selectedCream.price.toFixed(2)} €</span>
+                    <span className="font-serif text-2xl text-[#C9A84C]">{selectedCream.price} dh</span>
                   </div>
                   <button
                     onClick={() => {

@@ -62,26 +62,28 @@ const OrderModal = ({ cartItems, totalPrice, onClose }: OrderModalProps) => {
 
         {/* header */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-5 h-px bg-[#C9A84C]" />
-            <span className="text-[9px] tracking-[0.5em] uppercase text-[#C9A84C]">Finaliser</span>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-8 h-px bg-[#C9A84C]" />
+            <span className="text-[11px] tracking-[0.5em] uppercase text-[#C9A84C] font-medium">Finaliser</span>
           </div>
-          <h3 className="font-serif text-white text-2xl">Votre Commande</h3>
+          <h3 className="text-4xl font-semibold text-white leading-tight">Votre Commande</h3>
         </div>
 
         {/* order summary */}
         <div className="mb-6 space-y-2">
           {cartItems.map((item) => (
-            <div key={item.id} className="flex justify-between text-sm">
-              <span className="text-white/60">
-                {item.name}{item.size ? ` · ${item.size}` : ''} × {item.quantity}
+            <div key={item.id} className="flex justify-between items-center">
+              <span className="text-base font-medium text-white/80">
+                {item.name}
+                {item.size && <span className="text-[10px] tracking-widest text-[#C9A84C]/60 ml-2 uppercase">{item.size}</span>}
+                <span className="text-white/40 text-sm ml-1">× {item.quantity}</span>
               </span>
-              <span className="text-[#C9A84C]">{item.price * item.quantity} MAD</span>
+              <span className="text-base font-semibold text-[#C9A84C]">{item.price * item.quantity} dh</span>
             </div>
           ))}
-          <div className="flex justify-between pt-3 border-t border-[#C9A84C]/20">
-            <span className="text-white/80 text-sm tracking-wider uppercase text-xs">Total</span>
-            <span className="font-serif text-[#C9A84C]">{totalPrice} MAD</span>
+          <div className="flex justify-between items-center pt-4 border-t border-[#C9A84C]/20">
+            <span className="text-sm tracking-[0.35em] uppercase text-white/50">Total</span>
+            <span className="text-2xl font-bold text-[#C9A84C]">{totalPrice} dh</span>
           </div>
         </div>
 
@@ -96,7 +98,7 @@ const OrderModal = ({ cartItems, totalPrice, onClose }: OrderModalProps) => {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               required
-              className="w-full bg-transparent border-b border-white/20 text-white placeholder-white/30 py-3 focus:outline-none focus:border-[#C9A84C] transition-colors text-sm font-light"
+              className="w-full bg-transparent border-b border-white/20 text-white placeholder-white/40 py-3 focus:outline-none focus:border-[#C9A84C] transition-colors text-base font-medium"
             />
           </div>
           <div>
@@ -106,7 +108,7 @@ const OrderModal = ({ cartItems, totalPrice, onClose }: OrderModalProps) => {
               value={form.address}
               onChange={(e) => setForm({ ...form, address: e.target.value })}
               required
-              className="w-full bg-transparent border-b border-white/20 text-white placeholder-white/30 py-3 focus:outline-none focus:border-[#C9A84C] transition-colors text-sm font-light"
+              className="w-full bg-transparent border-b border-white/20 text-white placeholder-white/40 py-3 focus:outline-none focus:border-[#C9A84C] transition-colors text-base font-medium"
             />
           </div>
           <div>
@@ -116,7 +118,7 @@ const OrderModal = ({ cartItems, totalPrice, onClose }: OrderModalProps) => {
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
               required
-              className="w-full bg-transparent border-b border-white/20 text-white placeholder-white/30 py-3 focus:outline-none focus:border-[#C9A84C] transition-colors text-sm font-light"
+              className="w-full bg-transparent border-b border-white/20 text-white placeholder-white/40 py-3 focus:outline-none focus:border-[#C9A84C] transition-colors text-base font-medium"
             />
           </div>
 

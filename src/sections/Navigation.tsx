@@ -211,7 +211,7 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
         >
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-6 border-b border-[#C9A84C]/30">
-              <h3 className="font-serif text-2xl text-[#C9A84C]">{navigationConfig.brandName}</h3>
+              <h3 className="text-2xl font-light tracking-[0.2em] uppercase text-[#C9A84C]">{navigationConfig.brandName}</h3>
               <button
                 onClick={() => setIsCartOpen(false)}
                 className="p-2 text-white hover:text-[#C9A84C] transition-colors"
@@ -244,9 +244,9 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
                         />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-serif text-lg text-white">{item.name}</h4>
-                        {item.size && <p className="text-xs text-[#C9A84C] mt-1">{item.size}</p>}
-                        <p className="text-[#C9A84C] mt-1">${item.price.toFixed(2)}</p>
+                        <h4 className="text-lg font-medium text-white leading-snug">{item.name}</h4>
+                        {item.size && <p className="text-[11px] tracking-[0.3em] uppercase text-[#C9A84C]/70 mt-1">{item.size}</p>}
+                        <p className="text-lg font-semibold text-[#C9A84C] mt-1">{item.price} dh</p>
                         <div className="flex items-center gap-3 mt-3">
                           <button
                             onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
@@ -278,8 +278,8 @@ const Navigation = ({ cartItems, onRemoveFromCart, onUpdateQuantity }: Navigatio
             {cartItems.length > 0 && (
               <div className="p-6 border-t border-[#C9A84C]/30 bg-[#0a0a0a]">
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-lg text-white">Subtotal</span>
-                  <span className="font-serif text-xl text-[#C9A84C]">${totalPrice.toFixed(2)}</span>
+                  <span className="text-sm tracking-[0.3em] uppercase text-white/60">Sous-total</span>
+                  <span className="text-2xl font-semibold text-[#C9A84C]">{totalPrice} dh</span>
                 </div>
                 <button
                   onClick={() => { setIsCartOpen(false); setIsOrderOpen(true); }}

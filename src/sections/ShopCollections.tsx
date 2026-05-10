@@ -9,6 +9,7 @@ const cards = [
     cta: 'Découvrir',
     image: 'images/botles.jpg',
     large: true,
+    target: '#products',
   },
   {
     id: 'homme',
@@ -18,6 +19,7 @@ const cards = [
     cta: 'Découvrir',
     image: 'images/perfume-4.jpg',
     large: false,
+    target: '#packs',
   },
   {
     id: 'maison',
@@ -27,6 +29,7 @@ const cards = [
     cta: 'En savoir plus',
     image: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=800&auto=format&fit=crop&q=80',
     large: false,
+    target: '#notre-histoire',
   },
 ];
 
@@ -169,6 +172,7 @@ const ShopCollections = () => {
               }}
               onMouseEnter={() => setHovered(card.id)}
               onMouseLeave={() => setHovered(null)}
+              onClick={() => document.querySelector(card.target)?.scrollIntoView({ behavior: 'smooth' })}
             >
               {/* background image */}
               <div
@@ -226,10 +230,10 @@ const ShopCollections = () => {
                 </p>
 
                 {/* button */}
-                <a href="#products" className="sc-btn"
+                <a href={card.target} className="sc-btn"
                   onClick={(e) => {
                     e.preventDefault();
-                    document.querySelector('#products')?.scrollIntoView({ behavior: 'smooth' });
+                    document.querySelector(card.target)?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
                   {card.cta}
