@@ -7,11 +7,6 @@ interface ProductsProps {
   onAddToCart: (product: Product, size: string) => void;
 }
 
-const sizeMultipliers: Record<string, number> = {
-  '30ml': 1,
-  '50ml': 1.5,
-  '100ml': 2.5,
-};
 
 const Products = ({ onAddToCart }: ProductsProps) => {
   if (!productsConfig.heading && productsConfig.products.length === 0) return null;
@@ -60,10 +55,6 @@ const Products = ({ onAddToCart }: ProductsProps) => {
 
   const closeProductModal = () => {
     setSelectedProduct(null);
-  };
-
-  const getPriceForSize = (basePrice: number, size: string) => {
-    return Math.round(basePrice * sizeMultipliers[size]);
   };
 
   return (
@@ -200,7 +191,7 @@ const Products = ({ onAddToCart }: ProductsProps) => {
                     <span className="text-gray-500 text-sm line-through">69 dh</span>
                   </div>
                   <p className="text-gray-400 text-sm mt-2 tracking-wider font-sans">
-                    {product.topNotes.slice(0, 3).join(' · ')}
+                    {product.topNotes?.slice(0, 3).join(' · ')}
                   </p>
                 </div>
               </div>
